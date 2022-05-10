@@ -1,0 +1,16 @@
+{  
+
+  "supportFile" :	"cypress/support/index.js",
+  "integrationFolder" : "cypress/integration/test-specs/",
+  "ignoreTestFiles": "**/page-objects/*.js", 
+  "projectId": "zjnpgb",
+  "reporter" : "mochawesome",
+  "pageLoadTimeout": 200000,
+  "defaultCommandTimeout": 200000,
+  "chromeWebSecurity": false, 
+  "viewportWidth": 1300,
+  "viewportHeight": 1400,
+  "env": {
+  "baseUrl": "https://www.target.com/"       
+  }
+}

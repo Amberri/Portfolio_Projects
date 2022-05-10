@@ -1,0 +1,44 @@
+{
+    "valid_email": "amber.hofler02@gmail.com",
+    "valid_firstname": "Amber",
+    "valid_lastname": "AUTest",
+    "valid_mobile": "7577776502",
+    "valid_password": "Bubblegum2011!",
+
+    "valid_email_noacct": "perry.mason@gmail.com",
+    "valid_firstname_noacct": "Perry",
+    "valid_lastname_noacct": "Mason",
+    "valid_mobile_noacct": "7577776502",
+    "valid_password_noacct": "pubblegum2011!",
+
+    "invalid_Email": "amberautest@",
+    "invalid_Firstname": "T",
+    "invalid_Lastname": "Y",
+    "invalid_Mobile": "8888",
+    "invalid_Password": "T st",
+
+    "visible": "visible",
+    "doesNotExist": "Invisible",
+
+    "path_CreateAccountPage": "create_session_create_account",
+    "path_SignInPage": "create_session_signin",
+
+    "sn_WrngMsg_EmailFld": "Please enter a email or phone number",
+    "sn_WrngMsg_PasswordFld": "Please enter your password",
+    "sn_WrngMsg_AcctNotFound":"Sorry, something went wrong. Please try again.",
+    "sn_InvldInptMsg_EmailFld": "Please enter a valid email or phone number",
+    "sn_InvldInptMsg_PasswordFld": "Please enter a valid password",
+    "sn_txtSignInBtn": "Sign in",
+    "sn_txtCreateYourAccountBtn": "Create your Target account",
+    "sn_txtForgotPasswordLnk": "Forgot password?",
+
+    "ca_WrngMsg_EmailFld": "Please enter your email",
+    "ca_WrngMsg_FirstNameFld": "Please enter your first name",
+    "ca_WrngMsg_LastNameFld": "Please enter your last name",
+    "ca_txtCreateYourAccountBtn": "Create account",
+    "ca_InvldInptMsg_EmailFld": "Please enter a valid email",
+    "ca_InvldInptMsg_MobileFld": "Please enter a valid phone number"
+
+   
+
+}
