@@ -1,0 +1,376 @@
+package page;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
+import org.testng.Assert;
+import org.openqa.selenium.JavascriptExecutor;
+
+public class JCPennyPO {
+
+  WebDriver driver = null;
+
+  public JCPennyPO(WebDriver driver) {
+    this.driver = driver;
+  }
+
+  // -------------------- Page Elements--------------------
+
+  // Search Fields
+  By fldSearch = By.xpath("//input[@data-automation-id='search-text-box']");
+  By btnSearch = By.xpath("//button[@data-automation-id='searchIconBlock']");
+  
+  // Shopping Results 
+  By crdMerchTitle = By.xpath("//a[@data-automation-id='product-title']");
+  By crdMerchQckAddBtn = By.xpath("//button[@data-automation-id='QuickAddToCart']");
+  By drwMerchAddBtn = By.xpath("//button[@data-automation-id='miniPDPBtn']");
+  By drwSlctMerchColor = By.xpath("//ul[@data-automation-id='product-dimensions-color']/li");
+  By drwCloseBtn = By.xpath("//a[@data-automation-id='at-slide-back-button']");
+ 
+  // Menu 
+  By menuOption = By.xpath("//div[@data-automation-id='menu-item-link-5']");
+  By submenuOption = By.xpath("//a[contains(text(),'Toys & Games')]");
+  By barbielink = By.xpath("//img[@title='Barbie']");
+  
+  // Cart
+  By cartBtn = By.xpath("//a[@data-automation-id='bagLink']");
+  By cartSubTotal = By.xpath("//div[@data-automation-id='at-summary-subtotal-amount']");
+  By cartItemPrice = By.xpath("//div[@data-automation-id='at-cart-item-wrapper']/div/div/div/div/div[@data-automation-id='at-pricing-actual-price']");
+  By cartBagCount = By.xpath("//span[@data-automation-id='item-bag-count']");
+  By cartCheckoutBtn = By.xpath("//button[@data-automation-id='test-automation-btn-checkout']");
+  
+  // Guest checkout button
+  By guestCheckoutBtn = By.xpath("(//button[@data-automation-id='at-continue-as-guest'])[2]");
+  
+  // Checkout - Shipping Form
+  By shipToHomeRdo = By.xpath("//input[@data-automation-id='at-shippingAddressType-Home-radioButton']");
+  By shipAddressTypeDdl = By.xpath("//select[@data-automation-id='at-militaryAddressType-select']");
+  By shipFirstNameFld= By.xpath("//input[@data-automation-id='at-firstName-input']");
+  By shipLastNameFld = By.xpath("//input[@data-automation-id='at-lastName-input']");
+  By shipAddressFld = By.xpath("//input[@data-automation-id='at-lineOne-input']");
+  By shipAptFld = By.xpath("//input[@data-automation-id='at-lineTwo-input']");
+  By shipZipcodeFld = By.xpath("//input[@data-automation-id='at-zip-input']");
+  By shipStateFld = By.xpath("//input[@data-automation-id='at-state-select']");
+  By shipCityFld = By.xpath("//input[@data-automation-id='at-city-input']");
+  By shipPhoneFld = By.xpath("//input[@data-automation-id='at-phone-input']");
+  By shipStateDdl = By.xpath("//select[@data-automation-id='at-state-select']");
+  By shipContinueBtn = By.xpath("//button[@data-automation-id='at-Continue-btn']");
+  By shipDeliveryMethodStandardRdb = By.xpath("//input[@data-automation-id='at-shipping-method-STANDARD-radio-input']");
+  By shipDeliveryMethodThreeDayRdb = By.xpath("//input[@data-automation-id='at-shipping-method-GROUND3DAY-radio-input']");
+  By shipContinueBtnTwo = By.xpath("//button[@data-automation-id='at-shipping-address-continue-payment-button']");
+ 
+  // Checkout - Payment Form
+  By paymentMethodCreditCardRdo = By.xpath("//input[@data-automation-id='at-payment-card-radio']");
+  By paymentCreditCardFld = By.xpath("//input[@data-automation-id='at-input-creditcard-number']");
+  By paymentCreditCardCVVFld = By.xpath("//input[@data-automation-id='at-input-cvv']");
+  By paymentShipBillAddrSameCkbx = By.xpath("//div[@class='hma5Z']/label/input[@id='billingAddressSame']");
+  By paymentEmailFld = By.xpath("//input[@data-automation-id='at-email-input']");
+  By paymentPhoneFld = By.xpath("//input[@data-automation-id='at-input-creditcard-phone']");
+  By paymentReviewOrderBtn = By.xpath("//button[@data-automation-id='at-review-order-btn']");
+ 
+  // -------------------- Variables -------------------------------------
+  
+  public String shipFirstName = "Megan";
+  public String shipLastName = "Harper";
+  public String vSearch = "handbag";
+    
+  List < String > addItemsList = new ArrayList < String > (); {
+    addItemsList.add("Liz Claiborne");
+    addItemsList.add("Barbie");
+  }
+
+  // --------------- Methods ----------------------------------------
+  
+  public void verify_Element(By value, int waitOptionv) {
+	//Case:1 wait to ensure object visible and can be clicked.
+    //Case:2 wait to ensure object is invisible so next item can be selected.
+    //System.out.print("Verifying element wait");
+
+    int waitOption = waitOptionv;
+    By el = value;
+
+    switch (waitOption) {
+    case 1: //visible
+      Wait < WebDriver > wait = new FluentWait < WebDriver > (driver)
+        .withTimeout(Duration.ofSeconds(8000))
+        .pollingEvery(Duration.ofMillis(600))
+        .ignoring(NoSuchElementException.class);
+
+      wait.until(ExpectedConditions.or(
+        ExpectedConditions.elementToBeClickable(el)
+      ));
+      break;
+
+    case 2://invisible
+      Wait < WebDriver > wait2 = new FluentWait < WebDriver > (driver)
+        .withTimeout(Duration.ofSeconds(8000))
+        .pollingEvery(Duration.ofMillis(600))
+        .ignoring(NoSuchElementException.class);
+
+      wait2.until(ExpectedConditions.or(
+        ExpectedConditions.invisibilityOfElementLocated(el)
+      ));
+      break;
+    } //end switch
+  } //end method
+
+  public void search(String Text) throws InterruptedException {
+	  
+    verify_Element(fldSearch, 1);
+    driver.findElement(fldSearch).sendKeys(Text);
+    
+    verify_Element(btnSearch, 1);
+    driver.findElement(btnSearch).click();
+  }
+  public void navigateToToys() { 
+	  
+    Actions action = new Actions(driver);
+    this.verify_Element(menuOption, 1);
+    WebElement menuOptionBabyKid = driver.findElement(By.xpath("//div[@data-automation-id='menu-item-link-5']"));
+    action.moveToElement(menuOptionBabyKid).build().perform();
+
+    this.verify_Element(submenuOption, 1);
+    WebElement submenuOptionToys = driver.findElement(By.xpath("//a[contains(text(),'Toys & Games')]"));
+    action.moveToElement(submenuOptionToys).click().build().perform();
+
+    this.verify_Element(barbielink, 1);
+    driver.findElement(barbielink).click();
+  }
+
+  public void addToCart() throws InterruptedException {
+
+    List < WebElement > products = driver.findElements(crdMerchTitle);
+
+    int cartCount = 0;
+
+    for (int i = 0; i < products.size(); i++) {
+
+      for (int j = 0; j < addItemsList.size(); j++) {
+
+        String itemneeded = addItemsList.get(j).toString();
+        String productTitle="";
+        productTitle = products.get(i).getText();
+
+        if (productTitle.contains(itemneeded)) {
+          //1 wait to ensure object visible and can be click able.
+          //2 wait to ensure object is invisible so next item can be selected.
+
+          // Scroll item into view.
+          WebElement e = driver.findElements(crdMerchQckAddBtn).get(i);
+          JavascriptExecutor y = (JavascriptExecutor) driver;
+          y.executeScript("arguments[0].scrollIntoView(true); window.scrollBy(0, -window.innerHeight / 4);", e);
+
+          //Click quick add to cart.
+          verify_Element(crdMerchQckAddBtn, 1);
+          driver.findElements(crdMerchQckAddBtn).get(i).click();
+
+          //Select color
+          if (driver.findElements(drwSlctMerchColor).size() > 0) {
+            verify_Element(drwSlctMerchColor, 1);
+            driver.findElements(drwSlctMerchColor).get(0).click();
+          }
+
+          //Select add to cart 
+          verify_Element(drwMerchAddBtn, 1);
+          driver.findElement(drwMerchAddBtn).click();
+
+          //Close Cart 
+          verify_Element(drwCloseBtn, 1);
+          driver.findElement(drwCloseBtn).click();
+          verify_Element(drwCloseBtn, 2);
+
+          //number of items in the cart.
+          cartCount++;
+        }
+      }
+      if (cartCount == 1) {
+        break;
+      }
+    }
+  }
+
+  public void validateCartTotal() throws InterruptedException {
+
+    int cartItemCount = 0;
+    double cartItemTotal = 0;
+    double price = 0;
+
+    int cartBagCnt =0;
+    double subtotal=0;
+    this.verify_Element(cartBagCount, 1);
+    cartBagCnt = convertStrToInt(driver.findElement(cartBagCount).getText());
+    this.verify_Element(cartSubTotal, 1);
+    subtotal = convertStrToDouble(driver.findElement(cartSubTotal).getText());
+    
+    System.out.print(" subtotal conversion value " + subtotal);
+
+    List < WebElement > cartItemPrices = driver.findElements(cartItemPrice);
+
+    for (int i = 0; i < cartItemPrices.size(); i++) {
+      price = convertStrToDouble(cartItemPrices.get(i).getText());
+      System.out.print("|    item price after format= " + price);
+
+      cartItemTotal = cartItemTotal + price;
+      System.out.print("cartItemTotal = " + cartItemTotal);
+
+      cartItemCount++;
+
+      System.out.print(" cartItemCount " + cartItemCount);
+    }
+
+    assertCartSubtotalValid(cartItemTotal, subtotal);
+    assertCartItemCountValid(cartItemCount, cartBagCnt);
+  }
+
+  public double convertStrToDouble(String str) throws InterruptedException {
+    double money = 0;
+    String s = str;
+    s = s.substring(1); //Removes $
+    System.out.print(" | before conversion " + s);
+    money = Double.parseDouble(s);
+    return money;
+  }
+  public int convertStrToInt(String str) throws InterruptedException {
+    int amount = 0;
+    String s = str;
+    System.out.print("| before conversion " + s);
+    amount = Integer.parseInt(s);
+    System.out.print("| after conversion " + s);
+    return amount;
+  }
+  public void goToCart() throws InterruptedException {
+	  this.verify_Element(cartBtn, 1);
+      driver.findElement(cartBtn).click(); 
+  }
+  
+  public void cartCheckout() throws InterruptedException {
+	  
+//proceed to checkout	  
+this.verify_Element(cartCheckoutBtn, 1);
+driver.findElement(this.cartCheckoutBtn).click();
+
+//checkout as guest	     
+this.verify_Element(this.guestCheckoutBtn, 1);
+driver.findElement(this.guestCheckoutBtn).click();
+ 
+ //Populated Shipping Form Information	   
+ //this.verify_Element(shipToHomeRdo, 1);
+ //driver.findElement(shipToHomeRdo).click();
+   Assert.assertEquals(driver.findElement(shipToHomeRdo).isSelected(), true);
+   
+
+ //System.out.print("radio button selected?   "); 
+	   
+ this.verify_Element(this.shipFirstNameFld, 1);
+ driver.findElement(this.shipFirstNameFld).sendKeys(shipFirstName);
+ 
+ this.verify_Element(this.shipLastNameFld, 1);
+ driver.findElement(this.shipLastNameFld).sendKeys(shipLastName);
+ 
+ String shipAddress = "8419 Chesapeake Blvd.";
+ this.verify_Element(this.shipAddressFld, 1);
+ driver.findElement(this.shipAddressFld).sendKeys(shipAddress);
+ 
+ String shipZip="23518";
+ this.verify_Element(this.shipZipcodeFld, 1);
+ driver.findElement(this.shipZipcodeFld).sendKeys(shipZip);
+ 
+ WebElement shipStateDropdown = driver.findElement(By.xpath("//select[@data-automation-id='at-state-select']"));
+ Select shipStateDropdl = new Select(shipStateDropdown);
+ this.verify_Element(shipStateDdl, 1);
+ shipStateDropdl.selectByValue("VA"); //select by index value
+ 
+ String shipCity = "Norfolk";
+ this.verify_Element(this.shipCityFld, 1);
+ driver.findElement(this.shipCityFld).sendKeys(shipCity);
+ 
+ String shipPhone = "75777776502";
+ this.verify_Element(this.shipPhoneFld, 1);
+ driver.findElement(this.shipPhoneFld).sendKeys(shipPhone);
+ 
+ this.verify_Element(this.shipContinueBtn, 1);
+ driver.findElement(this.shipContinueBtn).click();
+ 
+ Assert.assertTrue(driver.findElement(this.shipDeliveryMethodStandardRdb).isSelected()); 
+ Thread.sleep(4000);
+ 
+//Select three day shipping 
+JavascriptExecutor jse = (JavascriptExecutor) driver; 
+WebElement shipGround3DayRdb =driver.findElement(By.xpath("//input[@data-automation-id='at-shipping-method-GROUND3DAY-radio-input']"));
+jse.executeScript("arguments[0].click();", shipGround3DayRdb );
+ 
+//Validate three day shipping selected 
+boolean isGroundShippingSelected = (Boolean) jse.executeScript("return document.getElementById('shippingMethod-GROUND3DAY').checked;");
+Assert.assertEquals( isGroundShippingSelected, true, "Ground shipping is not selected");
+ 
+this.verify_Element(this.shipContinueBtnTwo, 1);
+driver.findElement(this.shipContinueBtnTwo).click();
+
+Assert.assertTrue(driver.findElement(paymentMethodCreditCardRdo).isSelected()); 
+
+String paymentCreditCardNumber = "46262088871";
+this.verify_Element(paymentCreditCardFld, 1);
+driver.findElement(paymentCreditCardFld).sendKeys(paymentCreditCardNumber);
+
+String paymentCreditCardCVV = "462";
+this.verify_Element(this.paymentCreditCardCVVFld, 1);
+driver.findElement(paymentCreditCardCVVFld).sendKeys(paymentCreditCardCVV);
+
+//this.verify_Element(paymentShipBillAddrSameCkbx, 1); 
+WebElement sameasaddress = driver.findElement(By.xpath("//input[@id='billingAddressSame']"));
+Assert.assertTrue(sameasaddress.isSelected(),"Shipping and billing address the same checkbox is not checked");
+
+//email
+String paymentEmail = "megan.harper@gmail.com";
+this.verify_Element(paymentEmailFld, 1);
+driver.findElement(paymentEmailFld).sendKeys(paymentEmail);
+
+//phone
+String paymentPhone = "7576968523";
+this.verify_Element(paymentPhoneFld, 1); 
+driver.findElement(paymentPhoneFld).sendKeys(paymentPhone);
+
+
+ } 
+  // --------------- Asserts ----------------------------------------
+  public void assertCartSubtotalValid(double cartItemTot, double cartSubTot) throws InterruptedException {
+    Assert.assertEquals(cartItemTot, cartSubTot, "The Sum of (Cart Item Prices) and (Cart Subtotal) do not match.");
+    System.out.print(cartItemTot + " - " + cartSubTot);
+  }
+  public void assertCartItemCountValid(int actCount, int cartBagCount) throws InterruptedException {
+    Assert.assertEquals(actCount, cartBagCount, "The number of (Cart Items) and the (Cart Bag Count) do not match");
+    System.out.print(actCount + " - " + cartBagCount);
+  }
+  // --------------- Main Methods ----------------------------------------
+
+  public void searchJCPennyHome() throws InterruptedException {
+
+  ///  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
+    this.search(vSearch);
+    this.addToCart(); //Adds one purse to cart.
+    this.navigateToToys();
+    this.addToCart(); //Adds one toy to cart.
+    this.goToCart();
+    this.validateCartTotal(); //good
+    this.cartCheckout(); 
+  }
+}
+
+//System.out.print(driver.findElements(crdMerchTitle).get(i).getText());
+//System.out.print(driver.findElements(crdMerchTitle).get(i).getText());
+//System.out.println(driver.findElements(crdMerchTitle).get(i).getText());
+//addItems(driver, addItemsList, crdMerchTitle, crdMerchQckAddBtn, drwMerchAddBtn);
+
+//System.out.print(products.get(i).getText());
+//System.out.print(itemneeded + " " + productTitle + "|");
+//System.out.print("|MATCH|");

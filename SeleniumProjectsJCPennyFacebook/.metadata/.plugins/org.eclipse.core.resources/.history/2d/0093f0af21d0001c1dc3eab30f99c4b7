@@ -1,0 +1,20 @@
+package facebook;
+
+import org.testng.annotations.Test;
+import page.Login;
+import page.createFacebookAccount;
+
+public class CreateAccountValidLogin extends BaseTest {
+
+  @Test(priority = 1, description = "Create Facebook Account.")
+  public void createAccount() throws InterruptedException {
+    objCreateAccount = new createFacebookAccount(driver);
+    objCreateAccount.createUserAccount();
+  }
+
+  @Test(priority = 2, description = "Complete Valid Login.")
+  public void completeLogin() throws InterruptedException {
+    objLogin = new Login(driver, homePage);
+    objLogin.completeValidLogin();
+  }
+}
