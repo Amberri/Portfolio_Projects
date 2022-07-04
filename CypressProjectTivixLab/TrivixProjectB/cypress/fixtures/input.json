@@ -1,0 +1,13 @@
+{
+  "defaultModel": "Model",
+  "defaultMessage": "Please fill pickup and drop off dates",
+  "defaultSearchTxt": "Search",
+  "defaultSelect" : "Select",
+  "defaultCountryOptions" : "['France', 'Germainy', 'Poland']",
+  "Country": "1",
+  "City": "4",
+  "carModel" : "Toyota",
+  "pickUpDate" : "2022-08-08",
+  "dropOffDate" :"2022-08-10"
+
+}
